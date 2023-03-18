@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.expandLink {
+  margin-left: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsed {
+  display: none;
+}

@@ -36,3 +36,19 @@
   padding: 0px;
   width: 100%;
 }
+
+.accordionIconTitle {
+  margin-right: 16px;
+  width: 14px;
+  height: 16px;
+}
+
+.accordionTitle {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.groupCompleted {
+  color: #00B797;
+}

@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Accordion, Checkbox, ProgressBar } from '../../components';
+
 import styles from './ProgressWidget.module.css';
-import { Accordion } from './Accordion';
-import { ProgressBar } from '../ProgressBar';
+
+import clipboardIcon from '../../assets/icon-clipboard.svg';
+import clipboardIconGreen from '../../assets/icon-clipboard-green.svg';
 
 const calculateProgress = (groups) => {
   if (!groups || !groups.length) return;
@@ -19,9 +22,15 @@ const calculateProgress = (groups) => {
   return Math.round((100 * selectedAmount) / totalAmount);
 };
 
+const isGroupComplete = (group) =>
+  group.tasks.reduce((acc, task) => {
+    if (!acc) return false;
+    if (!task.checked) return false;
+    return true;
+  }, true);
+
 export function ProgressWidget({ title, taskGroups }) {
   const [groups, setGroups] = useState([]);
-
   const progress = calculateProgress(groups);
 
   const handleToggleExpand = (groupIndex) => {
@@ -54,21 +63,53 @@ export function ProgressWidget({ title, taskGroups }) {
         <span className={styles.title}>{title}</span>
         <ProgressBar progress={progress} />
       </div>
+
       <div className={styles.content}>
         {groups &&
           !!groups.length &&
-          groups.map((group, groupIndex) => (
-            <Accordion
-              title={group.name}
-              tasks={group.tasks}
-              expanded={group.expanded}
-              key={groupIndex}
-              onToggleExpand={() => handleToggleExpand(groupIndex)}
-              onToggleTask={(taskIndex) =>
-                handleToggleTask(groupIndex, taskIndex)
-              }
-            />
-          ))}
+          groups.map((group, groupIndex) => {
+            const isComplete = isGroupComplete(group);
+
+            return (
+              <Accordion
+                expanded={group.expanded}
+                key={groupIndex}
+                onToggleExpand={() => handleToggleExpand(groupIndex)}
+                header={
+                  <>
+                    <img
+                      src={isComplete ? clipboardIconGreen : clipboardIcon}
+                      className={styles.accordionIconTitle}
+                      alt=""
+                    />
+                    <div
+                      className={`${styles.accordionTitle} ${
+                        isComplete ? styles.groupCompleted : ''
+                      }`}
+                    >
+                      {group.name}
+                    </div>
+                  </>
+                }
+                content={
+                  <>
+                    {group.tasks.map((task, taskIndex) => (
+                      <div key={taskIndex}>
+                        <Checkbox
+                          itemKey={taskIndex}
+                          label={task.description}
+                          checked={task.checked}
+                          onToggleSelection={() =>
+                            handleToggleTask(groupIndex, taskIndex)
+                          }
+                        />
+                      </div>
+                    ))}
+                  </>
+                }
+              />
+            );
+          })}
       </div>
     </div>
   );

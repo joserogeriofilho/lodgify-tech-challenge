@@ -27,22 +27,6 @@
   cursor: pointer;
 }
 
-.iconTitle {
-  margin-right: 16px;
-  width: 14px;
-  height: 16px;
-}
-
-.title {
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-}
-
-.wrapper.completed .title {
-  color: #00B797;
-}
-
 .expandLink {
   font-style: normal;
   font-weight: 400;

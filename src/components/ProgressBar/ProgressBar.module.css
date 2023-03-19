@@ -7,10 +7,12 @@
 
 .progress {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   background-color: #00B797;
   border-radius: 24px;
+  padding-right: 16px;
+  height: 24px;
 
   font-style: normal;
   font-weight: 600;

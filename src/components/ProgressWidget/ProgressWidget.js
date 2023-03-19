@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './ProgressWidget.module.css';
 import { Accordion } from './Accordion';
+import { ProgressBar } from '../ProgressBar';
 
 const calculateProgress = (groups) => {
   if (!groups || !groups.length) return;
@@ -51,7 +52,7 @@ export function ProgressWidget({ title, taskGroups }) {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <span className={styles.title}>{title}</span>
-        <div>{progress}</div>
+        <ProgressBar progress={progress} />
       </div>
       <div className={styles.content}>
         {groups &&

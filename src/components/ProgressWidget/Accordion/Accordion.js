@@ -40,22 +40,20 @@ export function Accordion({
           alt=""
         />
       </div>
-      <div
-        className={`${styles.content} ${
-          expanded ? styles.expanded : styles.collapsed
-        }`}
-      >
-        {tasks.map((item, index) => (
-          <div key={index}>
-            <Checkbox
-              itemKey={index}
-              label={item.description}
-              checked={item.checked}
-              onToggleSelection={() => onToggleTask(index)}
-            />
-          </div>
-        ))}
-      </div>
+      {expanded && (
+        <div className={styles.content}>
+          {tasks.map((item, index) => (
+            <div key={index}>
+              <Checkbox
+                itemKey={index}
+                label={item.description}
+                checked={item.checked}
+                onToggleSelection={() => onToggleTask(index)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

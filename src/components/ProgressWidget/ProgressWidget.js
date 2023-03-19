@@ -50,7 +50,7 @@ export function ProgressWidget({ title, taskGroups }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <div>{title}</div>
+        <span className={styles.title}>{title}</span>
         <div>{progress}</div>
       </div>
       <div className={styles.content}>

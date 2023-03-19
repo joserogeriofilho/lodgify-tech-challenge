@@ -1,5 +1,11 @@
 import { useState } from 'react';
+import { Checkbox } from '../../Checkbox';
 import styles from './Accordion.module.css';
+
+import icon from '../../../assets/icon-clipboard.svg';
+import greenIcon from '../../../assets/icon-clipboard-green.svg';
+import arrowUp from '../../../assets/icon-arrow-line-up.svg';
+import arrowDown from '../../../assets/icon-arrow-line-down.svg';
 
 export function Accordion({
   title,
@@ -20,12 +26,19 @@ export function Accordion({
         allTasksChecked ? styles.completed : null
       }`}
     >
-      <div className={styles.header}>
-        <div>icon</div>
-        <div>{title}</div>
-        <div className={styles.expandLink} onClick={onToggleExpand}>
-          {expanded ? 'Hide' : 'Show'}
-        </div>
+      <div className={styles.header} onClick={onToggleExpand}>
+        <img
+          src={allTasksChecked ? greenIcon : icon}
+          className={styles.iconTitle}
+          alt=""
+        />
+        <div className={styles.title}>{title}</div>
+        <div className={styles.expandLink}>{expanded ? 'Hide' : 'Show'}</div>
+        <img
+          src={expanded ? arrowUp : arrowDown}
+          className={styles.iconExpandLink}
+          alt=""
+        />
       </div>
       <div
         className={`${styles.content} ${
@@ -33,14 +46,14 @@ export function Accordion({
         }`}
       >
         {tasks.map((item, index) => (
-          <label key={index}>
-            <input
-              type="checkbox"
+          <div key={index}>
+            <Checkbox
+              itemKey={index}
+              label={item.description}
               checked={item.checked}
-              onChange={() => onToggleTask(index)}
+              onToggleSelection={() => onToggleTask(index)}
             />
-            {item.description} + {item.value}
-          </label>
+          </div>
         ))}
       </div>
     </div>

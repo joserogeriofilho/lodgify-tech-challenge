@@ -18,13 +18,19 @@
   gap: 16px;
 }
 
+.title{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 24px;
+
+  color: #333333;
+}
+
 .content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   width: 100%;
-
-  border: 1px solid #CCCCCC;
-  border-radius: 8px;
 }

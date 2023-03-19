@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.wrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox {
+  margin-right: 16px;
+}

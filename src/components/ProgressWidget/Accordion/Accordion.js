@@ -8,8 +8,18 @@ export function Accordion({
   onToggleExpand,
   onToggleTask,
 }) {
+  const allTasksChecked = tasks.reduce((acc, task) => {
+    if (!acc) return false;
+    if (!task.checked) return false;
+    return true;
+  }, true);
+
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={`${styles.wrapper} ${
+        allTasksChecked ? styles.completed : null
+      }`}
+    >
       <div className={styles.header}>
         <div>icon</div>
         <div>{title}</div>

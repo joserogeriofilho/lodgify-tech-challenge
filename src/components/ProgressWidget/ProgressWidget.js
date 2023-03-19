@@ -2,8 +2,26 @@ import { useEffect, useState } from 'react';
 import styles from './ProgressWidget.module.css';
 import { Accordion } from './Accordion';
 
+const calculateProgress = (groups) => {
+  if (!groups || !groups.length) return;
+
+  let totalAmount = 0,
+    selectedAmount = 0;
+
+  groups.forEach((group) => {
+    group.tasks.forEach((task) => {
+      if (task.checked) selectedAmount += task.value;
+      totalAmount += task.value;
+    });
+  });
+
+  return Math.round((100 * selectedAmount) / totalAmount);
+};
+
 export function ProgressWidget({ title, taskGroups }) {
   const [groups, setGroups] = useState([]);
+
+  const progress = calculateProgress(groups);
 
   const handleToggleExpand = (groupIndex) => {
     const newState = [...groups];
@@ -33,7 +51,7 @@ export function ProgressWidget({ title, taskGroups }) {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <div>{title}</div>
-        <div>Progress bar</div>
+        <div>{progress}</div>
       </div>
       <div className={styles.content}>
         {groups &&

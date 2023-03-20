@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Progress Widget Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Lodgify Tech Challenge
 
-## Available Scripts
+<img
+  alt="Screenshot of the Progress Widget component"
+  src="https://user-images.githubusercontent.com/12038461/226211691-8b76c13f-d5bc-4360-aa42-ecfc7769e43b.png"
+  style="width: 500px; height: auto"
+/>
 
-In the project directory, you can run:
+A widget that shows groups of tasks as accordions and a bar that shows the percentage of the work that has been done by the checked tasks.
 
-### `npm start`
+## Architecture overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This is a `React` application bootstraped by `create-react-app`. Its main goal is to showcase the **ProgressWidget** component.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The ProgressWidget is composed by three reusable components: Accordion, Checkbox and ProgressBar. Data fetching is done by a custom hook using the `Fetch` API.
 
-### `npm test`
+```
+├── src
+│   ├── components
+│       ├── Accordion
+│       ├── Checkbox
+│       ├── ProgressBar
+│       ├── ProgressWidget
+│   ├── hooks
+│       ├── useFetchTaskGroups
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The ProgressWidget holds the task groups in its state, fetching the data from the internet, keeping a copy in memory and adding the property `expanded` to each item of the list.
+This allows changing the values of the groups property `expanded` and tasks property `checked`, passing callbacks down to other components when necessary (eg. Accordion).
 
-### `npm run build`
+## Work breakdown
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+By looking at the commit history of the repository one can see that the following strategy:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Creation of the application, cleaning of the code and kick start of the ProgressWidget component;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Fetching of data and creation of the Accordion component;
 
-### `npm run eject`
+3. Creation of the Checkbox component and styling of the components;
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Creation of the ProgressBar component;
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Unit tests, refactor of code;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+6. Documentation;
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+7. Ongoing improvements;
 
-## Learn More
+## Testing Strategy
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Unit tests were added to each component to garantee their correct behavior:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Accordion**
 
-### Code Splitting
+```
+  √ should render the title but not content when collapsed
+  √ should render title and content when expanded
+  √ should call onToggleExpand when clicking in the header
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Checkbox**
 
-### Analyzing the Bundle Size
+```
+  √ should render an unchecked state
+  √ should render a checked state
+  √ should call the callback function passed as prop when clicked
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**ProgressWidget**
 
-### Making a Progressive Web App
+```
+  √ should render all the groups titles
+  √ should show the correct progress
+  √ should render all tasks from a group when clicking on it
+  √ should change the progress correctly when clicking on a task
+  √ should not render the tasks of a group after closing it
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Components API
 
-### Advanced Configuration
+### ProgressWidget
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Property | Type | Required | Description |
+| -------- | ---- | -------- | ----------- |
+| title | string | yes | Title to be displayed by the component|
+| taskGroups | TaskGroup[] | yes | List of TaskGroup objects|
 
-### Deployment
+### Accordion
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+| Property | Type | Required | Description |
+| -------- | ---- | -------- | ----------- |
+| header | ReactNode | yes | The contents of the header section |
+| content | ReactNode | yes | The contents to be displayed after expanding the component|
+| expanded | boolean | yes | Defines if the component is going to be rendered expanded or collapsed|
+| onToggleExpand | Function | yes | The callback to be called when clicking on the header section of the accordion |
 
-### `npm run build` fails to minify
+## Types
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### TaskGroup
+
+| Property | Type | Required | Description |
+| -------- | ---- | -------- | ----------- |
+| name | string | yes | Name of the group |
+| tasks | Task[] | yes | List of tasks |
+
+### Task
+
+| Property | Type | Required | Description |
+| -------- | ---- | -------- | ----------- |
+| description | string | yes | Description of the task |
+| value | number | yes | Value of the task |
+| checked | boolean | yes | `true` if the task is done, `false` otherwise |

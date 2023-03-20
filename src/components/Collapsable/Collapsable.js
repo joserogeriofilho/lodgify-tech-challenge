@@ -1,9 +1,9 @@
-import styles from './Accordion.module.css';
+import styles from './Collapsable.module.css';
 
 import arrowUp from '../../assets/icon-arrow-line-up.svg';
 import arrowDown from '../../assets/icon-arrow-line-down.svg';
 
-export function Accordion({ header, content, expanded, onToggleExpand }) {
+export function Collapsable({ header, content, expanded, onToggleExpand }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header} onClick={onToggleExpand}>

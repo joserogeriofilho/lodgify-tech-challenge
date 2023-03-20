@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Accordion } from './Accordion';
+import { Collapsable } from './Collapsable';
 
 const defaultProps = {
   header: 'Some title',
@@ -8,9 +8,9 @@ const defaultProps = {
   onToggleExpand: jest.fn(),
 };
 
-describe('Accordion', () => {
+describe('Collapsable', () => {
   it('should render the title but not content when collapsed', () => {
-    render(<Accordion {...defaultProps} />);
+    render(<Collapsable {...defaultProps} />);
     const header = screen.getByText(/some title/i);
     const content = screen.queryByText(/some mocked content/i);
 
@@ -19,7 +19,7 @@ describe('Accordion', () => {
   });
 
   it('should render title and content when expanded', () => {
-    render(<Accordion {...defaultProps} expanded />);
+    render(<Collapsable {...defaultProps} expanded />);
     const header = screen.getByText(/some title/i);
     const content = screen.getByText(/some mocked content/i);
 
@@ -28,7 +28,7 @@ describe('Accordion', () => {
   });
 
   it('should call onToggleExpand when clicking in the header', () => {
-    render(<Accordion {...defaultProps} />);
+    render(<Collapsable {...defaultProps} />);
     const header = screen.getByText(/some title/i);
 
     fireEvent.click(header);

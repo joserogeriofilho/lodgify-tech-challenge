@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Accordion, Checkbox, ProgressBar } from '../../components';
+import { Collapsable, Checkbox, ProgressBar } from '../../components';
 
 import styles from './ProgressWidget.module.css';
 
@@ -71,7 +71,7 @@ export function ProgressWidget({ title, taskGroups }) {
             const isComplete = isGroupComplete(group);
 
             return (
-              <Accordion
+              <Collapsable
                 expanded={group.expanded}
                 key={groupIndex}
                 onToggleExpand={() => handleToggleExpand(groupIndex)}
